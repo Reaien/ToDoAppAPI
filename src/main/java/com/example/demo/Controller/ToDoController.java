@@ -35,8 +35,15 @@ public class ToDoController {
     public String updateTask(@PathVariable long id, @RequestBody Task task){
         Task updatedTask = toDoRepository.findById(id).get();
         updatedTask.setTitle(task.getTitle());
-        updatedTask.setTitle(task.getDescription());
+        updatedTask.setDescription(task.getDescription());
         toDoRepository.save(updatedTask);
         return "Tarea actualizada";
+    }
+
+    @DeleteMapping(value = "/deleteTask/{id}")
+    public String deleteTask(@PathVariable long id){
+        Task deletedTask = toDoRepository.findById(id).get();
+        toDoRepository.delete(deletedTask);
+        return "Tarea eliminada";
     }
 }
